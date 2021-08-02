@@ -74,6 +74,15 @@ QuickScan := [{"x":700,"y":450,"w":872,"h":640}]
         WinMove, "ahk_id %QuickScanWinID%",, quickScan[1].x, quickScan[1].y
         sleep 500
 
+        run, python security_questions.py
+
+        MsgBox, , Weekly Security AHK Script, When you have completed the security questions please press OK.
+
+        WinExist("notepad - user_responses.txt")
+        WinActivate
+        ResponsesWinID := WinExist("A")
+        WinMove, "ahk_id %ResponsesWinID%", , 1191, 4, 722, 293    
+
         MsgBox, , Weekly Security AHK Script, When the scan and all updates have been completed, please press OK
 
         ; Print Screen
@@ -115,7 +124,6 @@ SetWorkingDir, %A_ScriptDir%
 
     ^F3::
         {
-            ; IfWinExist, Google Chrome, "Home - Asana"
             WinID := WinExist("A")
             WinGetClass, thisClass
             WinGetTitle, thisTitle

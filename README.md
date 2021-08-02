@@ -13,3 +13,10 @@
 1. Ctrl + Alt + F2 - Configure file path function
 2. Ctrl + Alt + F1 - Run main security verification function
 3. Esc             - Exit the script
+
+## Dev hotkeys
+
+
+## Dev Notes:
+1. Create python script that asks security verification questions and also displays responses in a text file on desktop
+2. Create Selenium script that logs into google drive, creates folder, and uploads the verifivation screenshot
