@@ -78,10 +78,10 @@ QuickScan := [{"x":700,"y":450,"w":872,"h":640}]
 
         MsgBox, , Weekly Security AHK Script, When you have completed the security questions please press OK.
 
-        WinExist("notepad - user_responses.txt")
+        WinExist("user_responses - Notepad")
         WinActivate
         ResponsesWinID := WinExist("A")
-        WinMove, "ahk_id %ResponsesWinID%", , 1191, 4, 722, 293    
+        WinMove, "ahk_id %ResponsesWinID%", , 1191, 4, 722, 293 
 
         MsgBox, , Weekly Security AHK Script, When the scan and all updates have been completed, please press OK
 
@@ -105,31 +105,46 @@ QuickScan := [{"x":700,"y":450,"w":872,"h":640}]
         send ^s
         sleep 250
         sendRaw, % "Security Check " A_MMMM " " A_DD ", "A_YYYY
-
+        ExitApp
         return
     }
 
-#SingleInstance, Force
-SendMode Input
-SetWorkingDir, %A_ScriptDir%
+    #SingleInstance, Force
+    SendMode Input
+    SetWorkingDir, %A_ScriptDir%
 
     ; Development Commands 
-    ^F4::
-        {
-            CoordMode, Mouse, screen
-            MouseGetPos, MouseX, MouseY,
-            MsgBox, X: %MouseX% `nY: %MouseY%
-            return
-        }
+^F4::
+    {
+        CoordMode, Mouse, screen
+        MouseGetPos, MouseX, MouseY,
+        MsgBox, X: %MouseX% `nY: %MouseY%
+        return
+    }
 
-    ^F3::
-        {
-            WinID := WinExist("A")
-            WinGetClass, thisClass
-            WinGetTitle, thisTitle
-            WinGetPos, WinX, WinY, WinWidth, WinHeight, "ahk_id %WinID%"
-            MsgBox, Coords: X: %WinX% Y: %WinY% `nDimensions: Width: %WinWidth% Height: %WinHeight% `nTitle: %thisTitle% 
-            return
-        }
+^F3::
+    {
+        WinID := WinExist("A")
+        WinGetClass, thisClass
+        WinGetTitle, thisTitle
+        WinGetPos, WinX, WinY, WinWidth, WinHeight, "ahk_id %WinID%"
+        MsgBox, Coords: X: %WinX% Y: %WinY% `nDimensions: Width: %WinWidth% Height: %WinHeight% `nTitle: %thisTitle% 
+        return
+    }
 
-    Esc::ExitApp  ; Exit script with Escape key
+^F5::
+    {
+        run, python security_questions.py
+
+        MsgBox, , Weekly Security AHK Script, When you have completed the security questions please press OK.
+
+        run, python show_responses.py
+        sleep 500
+        WinExist("user_responses - Notepad")
+        WinActivate
+        ResponsesWinID := WinExist("A")
+        WinMove, "ahk_id %ResponsesWinID%", , 1191, 4, 722, 293 
+        return
+    }
+
+Esc::ExitApp ; Exit script with Escape key
