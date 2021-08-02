@@ -2,7 +2,6 @@
 
 ## Notes/Comments
 1. This will delete files. Do not use if you are not sure that you want to delete all files/folders in the following directories:
-
   * My Documents
   * My Downloads
   * My Desktop 
